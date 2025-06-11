@@ -4,43 +4,135 @@
   <meta charset="UTF-8">
   <title>Help - Crop Predictor</title>
   <style>
-    body{
+    html, body {
+      margin: 0;
+      padding: 0;
       background-color: #f3fff3;
-      padding: 40px;
+      font-family: Arial, sans-serif;
+      overflow-y: auto;
     }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
     .help-container {
       max-width: 800px;
-      margin-bottom: 50px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 100, 0, 0.1);
     }
+
     h2 {
-      color: green;
+      color: #2e7d32;
+      margin-top: 0;
     }
+
     p {
-      margin-bottom: 15px;
       line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .section-divider {
+      border-top: 2px dashed #a5d6a7;
+      margin: 30px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #a5d6a7;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #d0f0d0;
+    }
+
+    td {
+      background-color: #f9fff9;
     }
   </style>
 </head>
 <body>
   <div class="help-container">
     <h2>Help - How to Use the Crop Prediction Tool</h2>
-    
-    <p><strong>Step 1:</strong> Enter values for all seven input fields: Nitrogen, Phosphorous, Potassium, Temperature, Humidity, pH, and Rainfall.</p>
+    <p><strong>Step 1:</strong> Enter values for all seven input fields:</p>
+    <ul>
+      <li>Nitrogen (N) - in mg/kg</li>
+      <li>Phosphorous (P) - in mg/kg</li>
+      <li>Potassium (K) - in mg/kg</li>
+      <li>Temperature - in °C</li>
+      <li>Humidity - in %</li>
+      <li>pH - on a scale of 0–14</li>
+      <li>Rainfall - in mm</li>
+    </ul>
     <p><strong>Step 2:</strong> Click the <em>Predict</em> button to get the suggested crop.</p>
     <p><strong>Step 3:</strong> Once the crop is predicted, the Tips section will show helpful farming tips for that crop.</p>
-    <p><strong>Note:</strong> Ensure the values are realistic and numeric (e.g., Temperature in Celsius, Humidity in %, pH in 0–14 scale).</p>
 
-    <div class="help-container"></div>
+    <p><strong>Note:</strong> Ensure all values are numeric and within reasonable agricultural ranges.</p>
+
+    <div class="section-divider"></div>
 
     <h2>सहायता - फसल पूर्वानुमान टूल का उपयोग कैसे करें</h2>
-    
-    <p><strong>चरण 1:</strong> सातों इनपुट फ़ील्ड (नाइट्रोजन, फॉस्फोरस, पोटेशियम, तापमान, आर्द्रता, पीएच, वर्षा) के मान दर्ज करें।</p>
-    <p><strong>चरण 2:</strong> <em>Predict</em> बटन पर क्लिक करें ताकि अनुशंसित फसल का नाम मिले।</p>
-    <p><strong>चरण 3:</strong> फसल का नाम आने के बाद, Tips सेक्शन में उस फसल के लिए उपयोगी सुझाव दिखेंगे।</p>
-    <p><strong>नोट:</strong> सुनिश्चित करें कि आप उचित और संख्यात्मक मान भरें (जैसे तापमान °C में, आर्द्रता % में, पीएच 0–14 के बीच)।</p>
+    <p><strong>चरण 1:</strong> नीचे दिए गए सभी सात इनपुट फ़ील्ड्स में मान दर्ज करें:</p>
+    <ul>
+      <li>नाइट्रोजन (N) - मिलीग्राम/किलोग्राम में</li>
+      <li>फॉस्फोरस (P) - मिलीग्राम/किलोग्राम में</li>
+      <li>पोटेशियम (K) - मिलीग्राम/किलोग्राम में</li>
+      <li>तापमान - सेल्सियस में (°C)</li>
+      <li>आर्द्रता - प्रतिशत (%) में</li>
+      <li>पीएच (pH) - 0 से 14 के पैमाने पर</li>
+      <li>वर्षा - मिलीमीटर (mm) में</li>
+    </ul>
+    <p><strong>चरण 2:</strong> <em>Predict</em> बटन पर क्लिक करें ताकि अनुशंसित फसल दिखाई दे।</p>
+    <p><strong>चरण 3:</strong> फसल के नाम के साथ Tips सेक्शन में उस फसल के उपयोगी सुझाव दिखाई देंगे।</p>
+
+    <p><strong>नोट:</strong> सुनिश्चित करें कि सभी मान उपयुक्त और संख्यात्मक हों।</p>
+
+    <div class="section-divider"></div>
+
+    <h2>🌾 Crop Name Translation (English to Hindi)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>English Name</th>
+          <th>Hindi Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Rice</td><td>धान</td></tr>
+        <tr><td>Maize</td><td>मक्का</td></tr>
+        <tr><td>Chickpea</td><td>चना</td></tr>
+        <tr><td>Kidneybeans</td><td>राजमा</td></tr>
+        <tr><td>Pigeonpeas</td><td>अरहर</td></tr>
+        <tr><td>Mothbeans</td><td>मटकी</td></tr>
+        <tr><td>Mungbean</td><td>मूंग</td></tr>
+        <tr><td>Blackgram</td><td>उड़द</td></tr>
+        <tr><td>Lentil</td><td>मसूर</td></tr>
+        <tr><td>Pomegranate</td><td>अनार</td></tr>
+        <tr><td>Banana</td><td>केला</td></tr>
+        <tr><td>Mango</td><td>आम</td></tr>
+        <tr><td>Grapes</td><td>अंगूर</td></tr>
+        <tr><td>Watermelon</td><td>तरबूज</td></tr>
+        <tr><td>Muskmelon</td><td>खरबूजा</td></tr>
+        <tr><td>Apple</td><td>सेब</td></tr>
+        <tr><td>Orange</td><td>संतरा</td></tr>
+        <tr><td>Papaya</td><td>पपीता</td></tr>
+        <tr><td>Coconut</td><td>नारियल</td></tr>
+        <tr><td>Cotton</td><td>कपास</td></tr>
+        <tr><td>Jute</td><td>पटसन</td></tr>
+        <tr><td>Coffee</td><td>कॉफी</td></tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
