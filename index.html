@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crop Prediction Model</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <!-- Left: Logo -->
+    <div id="header-left" onclick="window.location.href='/'">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="KrishiBot Logo" id="logo-img">
+    </div>
+
+    <!-- Center: Title -->
+    <div id="header-center">
+      <h1>KrishiBot</h1>
+    </div>
+
+    <!-- Right: Navigation Buttons -->
+    <div id="nav-buttons">
+      <button class="nav-btn" onclick="window.location.href='/help'">Help</button>
+      <button class="nav-btn" onclick="window.location.href='/tips'">Tips</button>
+      <button id="logout-btn" class="nav-btn">Logout</button>
+    </div>
+  </header>
+
+  <!-- Spacer for fixed header -->
+  <div style="height: 80px;"></div>
+
+  <!-- Crop Prediction Form (Visible only after login) -->
+  <div class="login" id="crop-section" style="display:none;">
+    <form action="{{ url_for('predict') }}" method="post" style="display: flex; flex-direction: column; align-items: center;">
+      <input type="text" name="Nitrogen" placeholder="Nitrogen" required />
+      <input type="text" name="Phosphorus" placeholder="Phosphorus" required />
+      <input type="text" name="Potassium" placeholder="Potassium" required />
+      <input type="text" name="temperature" placeholder="Temperature" required />
+      <input type="text" name="humidity" placeholder="Humidity" required />
+      <input type="text" name="pH" placeholder="pH" required />
+      <input type="text" name="rainfall" placeholder="Rainfall" required />
+      <button type="submit" class="btn btn-primary btn-large" style="width: 50%; margin-top: 20px;">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <br><br>
+      <h2 id="predi">{{ prediction_text }}</h2>
+      {% if image_filename %}
+        <img src="{{ url_for('static', filename=image_filename) }}" alt="Predicted Crop Image" class="crop-image" />
+      {% else %}
+        <p>No image available for this crop.</p>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- Auth Forms -->
+  <div id="auth-forms">
+    <h2>Login or Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="login-btn">Login</button>
+    <button id="signup-btn">Sign Up</button>
+  </div>
+
+  <!-- Firebase Authentication Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBM1yr69XRR_wMSwajSuBojgZhWlT7yDmU",
+      authDomain: "crop-prediction-c3c63.firebaseapp.com",
+      projectId: "crop-prediction-c3c63",
+      storageBucket: "crop-prediction-c3c63.appspot.com",
+      messagingSenderId: "9929523653",
+      appId: "1:9929523653:web:6f1a92656e611f496c8bac",
+      measurementId: "G-EMDNP818F7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const authForms = document.getElementById('auth-forms');
+    const cropSection = document.getElementById('crop-section');
+    const navButtons = document.getElementById('nav-buttons');
+
+    document.getElementById('signup-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+      }
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => alert("Sign up successful! You are now logged in."))
+        .catch(error => alert("Error: " + error.message));
+    });
+
+    document.getElementById('login-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+      }
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => alert("Logged in successfully."))
+        .catch(error => alert("Error: " + error.message));
+    });
+
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth)
+        .then(() => alert("Logged out successfully."))
+        .catch(error => alert("Error logging out: " + error.message));
+    });
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        authForms.style.display = "none";
+        cropSection.style.display = "block";
+        navButtons.style.display = "flex";
+      } else {
+        authForms.style.display = "block";
+        cropSection.style.display = "none";
+        navButtons.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
